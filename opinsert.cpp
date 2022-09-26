@@ -24,24 +24,21 @@ void find(vector<int> v, int plus, int minus, int multi, int divide, int i, int 
         return;
     }
 
-    if (plus != 0)
+    if (plus > 0)
     {
         find(v, plus - 1, minus, multi, divide, i, result + v[i]);
     }
-    if (minus != 0)
+    if (minus > 0)
     {
         find(v, plus, minus - 1, multi, divide, i, result - v[i]);
     }
-    if (multi != 0)
+    if (multi > 0)
     {
         find(v, plus, minus, multi - 1, divide, i, result * v[i]);
     }
-    if (divide != 0)
+    if (divide > 0)
     {
-        if(result == 0)
-            return;
         
-
         find(v, plus, minus, multi, divide - 1, i, result / v[i]);
     }
 }
@@ -61,5 +58,5 @@ int main()
 
     find(A, plus, minus, multi, divide, 0, A[0]);
 
-    cout<<maxVal<<"\n"<<minVal;
+    cout<<maxVal<<"\n"<<minVal<<"\n";
 }

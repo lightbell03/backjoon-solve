@@ -1,71 +1,127 @@
-#include <stdio.h>
+// #include <iostream>
+// #include <vector>
+
+// #define DUMMY 0
+
+// using namespace std;
+
+// int v[100001] = {0, };
+
+// void insert(int now)
+// {
+//     if (now == 1)
+//         return;
+
+//     int parent = now / 2;
+
+//     if (v[parent] < v[now])
+//     {
+//         int tmp = v[parent];
+//         v[parent] = v[now];
+//         v[now] = tmp;
+
+//         insert(parent);
+//     }
+// }
+
+// void down(int now, int top)
+// {
+//     if (now * 2 == top)
+//     {
+//         if (v[now * 2] > v[now])
+//         {
+//             int tmp = v[now];
+//             v[now] = v[now * 2];
+//             v[now * 2] = tmp;
+//         }
+//         return;
+//     }
+//     else if (now * 2 + 1 <= top)
+//     {
+//         int left = now * 2;
+//         int right = now * 2 + 1;
+
+//         if (v[left] > v[right])
+//         {
+//             int tmp = v[left];
+//             v[left] = v[now];
+//             v[now] = tmp;
+//             down(left, top);
+//         }
+//         else
+//         {
+//             int tmp = v[right];
+//             v[right] = v[now];
+//             v[now] = tmp;
+//             down(right, top);
+//         }
+//     }
+//     else
+//         return;
+// }
+
+// int pop(int &top)
+// {
+//     if (top == 0)
+//         return 0;
+
+//     int result = v[1];
+//     v[1] = v[top];
+
+//     down(1, --top);
+//     return result;
+// }
+
+// int main()
+// {
+//     ios::sync_with_stdio(false);
+// 	cin.tie(NULL);
+//     cout.tie(NULL);
+    
+//     int N, input, top = 0;
+
+//     cin >> N;
+
+//     for (int i = 0; i < N; i++)
+//     {
+//         cin >> input;
+
+//         if (input == 0)
+//         {
+//             cout << pop(top) << "\n";
+//         }
+//         else
+//         {
+//             v[++top] = input;
+//             insert(top);
+//         }
+//     }
+// }
+
+#include <iostream>
+#include <queue>
 
 using namespace std;
 
-class MaxHeap {
-private:
-    int n = 1;
-    int arr[10];
-public:
-    bool IsEmpty() {
-        return n == -1 ? true : false;
-    }
-
-    void Insert(int input){
-        arr[n++] = input;
-        BubbleUp(n - 1);
-    }
-
-    void BubbleUp(int n) {
-        if(arr[n] > arr[n/2]){
-            int tmp = arr[n];
-            arr[n] = arr[n/2];
-            arr[n/2] = tmp;
-            BubbleUp(n/2);
-        }
-    }
-
-    void TrickleDown(int n) {
-        if(arr[n*2] > arr[n*2 + 1]){
-            int tmp = arr[n];
-            arr[n] = arr[n*2];
-            arr[n*2] = tmp;
-            TrickleDown(n*2);
-        }
-        else {
-            int tmp = arr[n];
-            arr[n] = arr[n*2 + 1];
-            arr[n*2 + 1] = tmp;
-            TrickleDown(n*2 + 1);
-        }
-    }
-    
-    int Pop(){
-        n--;
-        int tmp = arr[1];
-        arr[1] = arr[n];
-        arr[n] = tmp;
-
-        TrickleDown(1);
-        return arr[n];
-    }
-};
-
 int main() {
-    int n, input;
-    MaxHeap mh;
+    ios::sync_with_stdio(false);
+	cin.tie(NULL);
+    cout.tie(NULL);
 
-    scanf("%d", &n);
-
-    for(int i=0; i<n; i++){
-        scanf("%d", &input);
-        mh.Insert(input);
+    int N, input;
+    priority_queue<int> pq;
+    cin>>N;
+    for(int i=0; i<N; i++){
+        cin>>input;
+        if(input == 0){
+            if(pq.empty()) cout<<"0\n";
+            else{
+                cout<<pq.top()<<"\n";
+                pq.pop();
+            }
+        }
+        else{
+            pq.push(input);
+        }
     }
-
-    for(int i=0; i<n; i++){
-        printf("%d ", mh.Pop());
-    }
-    printf("\n");
-    
-    return 0;
 }
